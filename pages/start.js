@@ -11,7 +11,7 @@ const Start = () => {
   const [startB, setStartB] = useState(true);
   const classes = useStyles();
 
-  const URL = "https://teachablemachine.withgoogle.com/models/Nbw1m24Y/";
+  const URL = "https://teachablemachine.withgoogle.com/models/GDJrvxe0/";
   let model, webcam, ctx, maxPredictions;
   let status = "";
   let count = 0;
@@ -72,29 +72,25 @@ const Start = () => {
         audio.play();
         counthtml.innerHTML = String(count);
       }
-
       status = "stand";
     } else if (prediction[1].probability.toFixed(2) > 0.95) {
-      status = "squat";
+      if(status ==="wrong" || status ==="bent_wrong"){
+        
+      }else{
+        status = "squat";
+      }
     } else if (prediction[2].probability.toFixed(2) > 0.95) {
-      if (status === "squat" || status === "stand") {
+      if (status === "squat" || status === "stand" || status === "wrong") {
         var audio = new Audio('../static/등견고하게.mp3')
         audio.play();
       }
       status = "bent_wrong";
-    } else if (prediction[3].probability.toFixed(2) > 0.95) {
-      if (status === "squat" || status === "stand") {
-        var audio = new Audio('../static/knee.mp3')
-        //audio.play();
-      }
-      //status = "knee_wrong";
-    } else if (prediction[4].probability.toFixed(2) > 0.95) {
+    }else if (prediction[3].probability.toFixed(2) > 0.95) {
       if (status == "squat" || status == "stand") {
         var audio = new Audio('../static/wrong.mp3')
         audio.play();
       }
       status = "wrong";
-
     }
 
     // finally draw the poses
@@ -107,7 +103,7 @@ const Start = () => {
     // draw the keypoints and skeleton
     if (pose) {
       const minPartConfidence = 0.5;
-      if (status === "wrong" || status === "knee_wrong" || status === "bent_wrong") {
+      if (status === "wrong" ||  status === "bent_wrong") {
         tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx, 5, 'red');
         tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx, 5, 'red');
       } else {

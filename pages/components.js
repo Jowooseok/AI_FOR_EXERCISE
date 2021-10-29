@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Row, Typography } from "antd";
+import { Button, Row, Typography, Col } from "antd";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react components for routing our app without refresh
@@ -25,15 +25,17 @@ const Components = (props) => {
   return (
     <div>
       <Parallax image={require("assets/img/nextjs_header.jpg")}>
+      <Col >
         <div className={classes.container}>
           <div className={classes.brand}>
-            <h1 className={classes.title} style={{ color: "Black" }}>AI for '</h1><h1 className={classes.title} style={{ color: "white" }}>Personal Training'</h1>
+            <h1 className={classes.title} style={{ color: "Black" }}>AI for '</h1><h1 className={classes.title} style={{ color: "white", opacity: 0.5 }}>Personal Training'</h1>
             <h3 className={classes.subtitle} style={{ color: "white" }}>
               A P.T Program Using Teachable Machine and NextJS.
             </h3>
             <Link><a href="./start"><Text underline strong={true} style={{ fontSize: 80, color: "white", cursor: "pointer" }} >Start!</Text></a></Link>
           </div>
         </div>
+        </Col>
       </Parallax>
     </div>
   );
